@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('bg.png') no-repeat center center;
+            background-size: cover;
+            color: white;
+            display: flex;
+            justify-content: left;
+            align-items: left;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .login-container {
+            background-color: transparent;
+            color: yellow;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 0;
+            text-align: left;
+            justify-content: left;
+            margin-left:50px;
+            margin-top: 50vh;  /* Moves the container down by half the viewport height */
+    transform: translateY(-50%); /* Pulls it up by half its own height */
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid navy;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: navy;
+            color: yellow;
+            width: auto;
+            height: auto;
+            padding: 10px 20px;
+            border: 2px solid yellow;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top:10px;
+        }
+
+        button:hover {
+            background-color: darkblue;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        .logo-container {
+            position: fixed;
+            /* Locks the div in place */
+            bottom: 20px;
+            /* Distance from the bottom */
+            right: 20px;
+            /* Distance from the right */
+            width: 200px;
+            /* Adjust as needed */
+            height: auto;
+        }
+
+        .logo-container img {
+            width: 100%;
+            /* Makes image responsive within the div */
+            height: auto;
+        }
+        p{
+            position:fixed;
+            top: 20px;
+            left: 20px;
+            margin: 10px;  
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <h1>LOGIN</h1>
+        <form>
+            <input id ="user" placeholder="Username" required><br>
+            <input id ="pass" placeholder="Password" required><br>
+            <button type = "button" id = "login">Login</button>
+        </form>
+    </div>
+    <div class="logo-container">
+        <img src="logos.png" alt="Logo">
+    </div>
+    <p>For demo purposes, use username = Test1 and password = Test._1234<br>
+        Backend is not fully implemented. Not affiliated with NYPD or FDNY.
+    </p>
+    <script src = "landing.js"></script>
+</body>
+
+</html>

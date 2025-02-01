@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <style>
+    h2{
+        font-family: Arial, Helvetica, sans-serif;
+        color: yellow;
+        margin: 20px;
+        font-size: 10vh;
+    }
+    body{
+        background-color: #123F8D;
+    }
+    .buttonDiv{
+        display:flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .divButton{
+        flex:1;
+        height:auto;
+        font-size: 2rem;
+        background-color: #123F8D;
+        border: 2px solid yellow;
+        border-radius: 5px;
+        margin:5px;
+        color:yellow;
+    }
+    .divButton:hover{
+        cursor:pointer;
+        flex:1;
+        height:auto;
+        font-size: 2rem;
+        background-color: yellow;
+        border: 2px solid #123F8D;
+        border-radius: 5px;
+        margin:5px;
+        color:#123F8D;
+        transition: 0.5s;
+    }
+    .special{
+        flex:1;
+        height:auto;
+        font-size: 2.5rem;
+        background-color: red;
+        border: 2px solid red;
+        border-radius: 5px;
+        margin:5px;
+        color:white;
+    }
+    .special:hover{
+        cursor:pointer;
+        flex:1;
+        height:auto;
+        font-size: 2.5rem;
+        background-color: white;
+        border: 2px solid red;
+        border-radius: 5px;
+        margin:5px;
+        color:red;
+        transition:0.5s
+    }
+
+    </style>
+</head>
+
+<body>
+    <h2>SAFE-NY</h2>
+    <div class = "buttonDiv">
+        <button class = "divButton">Home</button>
+        <button class = "divButton">Crime Map</button>
+        <button class = "divButton">AI Safety Agent</button>
+        <button class = "divButton">Settings</button>
+        <button class = "special">One-tap 911</button>
+    </div>
+</body>
+</html>
