@@ -1,0 +1,7 @@
+/* styles.css */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap');
+
+/* You can also define font styles for headings, paragraphs, etc. */
+h1, h2, h3, h4, h5, h6, p, body, button, .analysisBox ul {
+    font-family: 'Outfit', sans-serif;
+}

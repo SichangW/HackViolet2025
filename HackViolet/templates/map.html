@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>2D Interactive Crime Data Map</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Link to Global CSS File -->
+    <link rel="stylesheet" href="/static/styles.css">
+    <style>
+        body {
+        background: url('/static/bg.png') center;
+        margin: 0;
+        padding: 0;
+        }
+
+        /* Set map container size */
+        #map { 
+        height: 500px; 
+        width: 100%; 
+        }
+        
+        /* Style for the chat box */
+        .chatBox {
+        background-color: #123F8D;
+        border: 2px solid yellow;
+        padding: 20px;
+        margin-top: 20px;
+        text-align: center;
+        }
+
+        /* Updated style for the analysis box to center text and add spacing */
+        .analysisBox {
+        background-color: #123F8D;
+        border: 2px solid yellow;
+        padding: 20px;
+        margin-top: 20px;
+        border-radius: 8px;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        /* Adding even gap between lines */
+        line-height: 1.6;
+        }        
+
+        .analysisBox h2 {
+        font-size: 2.5rem; /* Slightly larger heading */
+        color: yellow;
+        margin-bottom: 15px;
+        }
+
+        .analysisBox ul {
+        list-style-type: none;
+        padding-left: 0;
+        margin: 0 auto;
+        }
+
+        .analysisBox li {
+        font-size: 1.75rem; /* Increase base font size for list items */
+        margin-bottom: 10px;
+        text-align: center;
+        }
+
+        .analysisBox li strong {
+        font-weight: bold;
+        }
+
+        .analysisBox ul ul {
+        margin-left: 20px;
+        padding-left: 0;
+        }
+
+        .analysisBox li ul {
+        list-style-type: none;
+        padding-left: 0;
+        margin: 0 auto;
+        }
+
+        .analysisBox li ul li {
+        font-size: 1rem; /* Slightly smaller for nested items */
+        margin-bottom: 8px;
+        text-align: center;
+        }
+
+        /* General paragraph styling */
+        p {
+        text-align: center;
+        margin: 0 auto;
+        }
+
+        /* Back button styling */
+        #back {
+        position: absolute;
+        top: 0px;
+        right: 10px;
+        background-color: #123F8D;
+        color: yellow;
+        border: 2px solid yellow;
+        border-radius: 5px;
+        padding: 9px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        margin-top: 15px;
+        }
+        #back:hover {
+        background-color: yellow;
+        color: #123F8D;
+        border: 2px solid #123F8D;
+        transition: 0.3s;
+        }
+
+        /* Toggle button styling */
+        #toggle3d {
+        position: absolute;
+        top: 0px;
+        right: 130px;
+        background-color: #123F8D;
+        color: yellow;
+        border: 2px solid yellow;
+        border-radius: 5px;
+        padding: 9px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        margin-top: 15px;
+        }
+        #toggle3d:hover {
+        background-color: yellow;
+        color: #123F8D;
+        border: 2px solid #123F8D;
+        transition: 0.3s;
+        }
+
+        /* Analysis result container */
+        #analysisResult {
+        text-align: center;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        }
+    </style>
+    </head>
+    <body>
+
+    <h1>2D Interactive Crime Data Map</h1>
+    <div id="map"></div>
+    <button id="back" onclick="window.location.href='main'">Back</button>
+    <button id="toggle3d" onclick="window.location.href='toggle3d'">Toggle 3D</button>
+
+    <select id="Years" onchange="getYear()">
+        <option value="2000">Year 2000</option>
+        <option value="2001">Year 2001</option>
+        <option value="2002">Year 2002</option>
+        <option value="2003">Year 2003</option>
+        <option value="2004">Year 2004</option>
+        <option value="2005">Year 2005</option>
+        <option value="2006">Year 2006</option>
+        <option value="2007">Year 2007</option>
+        <option value="2008">Year 2008</option>
+        <option value="2009">Year 2009</option>
+        <option value="2010">Year 2010</option>
+        <option value="2011">Year 2011</option>
+        <option value="2012">Year 2012</option>
+        <option value="2013">Year 2013</option>
+        <option value="2014">Year 2014</option>
+        <option value="2015">Year 2015</option>
+        <option value="2016">Year 2016</option>
+        <option value="2017">Year 2017</option>
+        <option value="2018">Year 2018</option>
+        <option value="2019">Year 2019</option>
+        <option value="2020">Year 2020</option>
+        <option value="2021">Year 2021</option>
+        <option value="2022">Year 2022</option>
+        <option value="2023">Year 2023</option>
+    </select>
+
+    <select id="Felonies" onchange="getFelony()">
+        <option value="murder">Murder</option>
+        <option value="rape">Rape</option>
+        <option value="robbery">Robbery</option>
+        <option value="assault">Assault</option>
+        <option value="burglary">Burglary</option>
+        <option value="grandlarency">Grand Larcency</option>
+        <option value="grandlarency_vehicles">Grand Larcency (Vehicle)</option>
+        <option value="totalcrimes">Total Felonies</option>
+    </select>
+
+    <!-- Chat Box -->
+    <div class="chatBox">
+        <h3>Ask a Question About Crime Trends</h3>
+        <input type="text" id="questionInput" placeholder="Enter your question here" />
+        <button onclick="submitQuestion()">Submit</button>
+        <p id="analysisResult"></p>
+    </div>
+
+    <!-- Load Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="../static/crime.js"></script>
+    <!-- Load External JS -->
+    <script src="../static/main.js"></script>
+
+    <script>
+        function submitQuestion() {
+        const question = document.getElementById('questionInput').value;
+        if (question.trim() !== '') {
+            // Send the question to the server
+            fetch('/submit_question', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ question: question })
+            })
+            .then(response => response.json())
+            .then(data => {
+            // Display the analysis in the analysisResult container
+            const analysisBox = document.getElementById('analysisResult');
+            analysisBox.innerHTML = "<div class='analysisBox'>" + data.analysis + "</div>";
+            })
+            .catch(error => console.error('Error submitting question:', error));
+        } else {
+            alert('Please enter a question.');
+        }
+        }
+    </script>
+
+</body>
+</html>
