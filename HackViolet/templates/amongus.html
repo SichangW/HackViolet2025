@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <style>
+        body {
+            background-image: url('/static/bg.png');
+            background-size: cover;
+            background-position: center right;
+            color: yellow;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            margin: 0;
+            height: 100vh;
+            padding: 0px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .about-container {
+            background-color: transparent;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-container p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .about-container h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .buttonDiv {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .divButton {
+            font-size: 1.8rem;
+            background-color: yellow;
+            color: #123F8D;
+            border: 2px solid yellow;
+            border-radius: 5px;
+            margin: 10px;
+            cursor: pointer;
+            padding: 10px 20px;
+            width: 200px;
+        }
+
+        .divButton:hover {
+            background-color: #123F8D;
+            color: yellow;
+            border: 2px solid yellow;
+            transition: 0.5s;
+        }
+
+        #back{
+            position:absolute;
+            top:0px;
+            right:10px;
+            background-color: #123F8D;
+            color: yellow;
+            border: 2px solid yellow;
+            border-radius: 5px;
+            padding: 9px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        #back:hover{
+            position:absolute;
+            top:0px;
+            right:10px;
+            background-color: yellow;
+            color: #123F8D;
+            border: 2px solid #123F8D;
+            transition:0.3s;
+            border-radius: 5px;
+            padding: 9px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <button id = "back" onclick="window.location.href='main'">Back</button>
+    <h1>About SAFE-NY</h1>
+
+    <div class="about-container">
+        <p>
+            SAFE-NY is a powerful safety application designed to empower women and New York residents alike by providing essential tools for personal security and community awareness. With its user-friendly interface, SAFE-NY offers access to detailed crime data and neighborhood safety trends, helping users make informed decisions. Powered by an advanced database, regex chat system, and an interactive choropleth map, the app provides meaningful insights into crime patterns. The streamlined "panic button" feature ensures rapid emergency communication by capturing audio, video, location, and generating an AI-powered transcript to provide critical information in moments of need. SAFE-NY stands as a vital resource, empowering women and communities with the confidence and knowledge to navigate their surroundings safely.
+        </p>
+        <p>
+            DISCLAIMER: This project was made by students for demonstrative and educational purposes only. We are not affiliated with NYPD or any government agency.
+        </p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Recording</title>
+    <style>
+        body {
+            background: url('/static/bg.png') center center no-repeat; /* Background image */
+            background-size: cover; /* Cover the entire screen */   
+            color: yellow;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            padding-top: 10vh; /* Reduced padding to move content closer to top */
+            margin: 0;
+            height: 100vh; /* Ensure the body takes up the full height of the screen */
+            overflow: hidden; /* Prevent scrolling */
+        }
+        h2 {
+            font-size: 5vh;
+        }
+        .buttonDiv {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        .divButton {
+            font-size: 2rem;
+            background-color: yellow;
+            color: #123F8D;
+            border: 2px solid yellow;
+            border-radius: 5px;
+            margin: 10px;
+            cursor: pointer;
+            padding: 10px;
+            width: 200px;
+        }
+        .divButton:hover {
+            background-color: #123F8D;
+            color: yellow;
+            border: 2px solid yellow;
+            transition: 0.5s;
+        }
+
+        /* Add red styling for the 'CALL POLICE' button */
+        .callPoliceButton {
+            background-color: red;
+            color: white;
+            border: 2px solid red;
+        }
+        .callPoliceButton:hover {
+            background-color: white;
+            color: red;
+            border: 2px solid red;
+        }
+
+        /* Modernizing the recording duration section */
+        .durationSection {
+            text-align: left;
+            margin-top: 30px;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .durationSection label {
+            font-size: 1.5rem;
+            color: yellow;
+        }
+
+        .durationSection input {
+            font-size: 1.5rem;
+            padding: 10px;
+            border-radius: 5px;
+            width: 100%;
+            margin-top: 10px;
+            border: 2px solid #123F8D;
+        }
+
+        .description {
+            font-size: 1rem;
+            color: yellow;
+            margin-top: 10px;
+            text-align: left;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .imageDiv {
+            position: absolute;
+            bottom: 10px; /* Position at the bottom */
+            right: 10px; /* Position at the right */
+        }
+
+        .imageDiv img {
+            width: 200px; /* Adjust the size of the image */
+            height: auto;
+        }
+
+    </style>
+    <script>
+        function confirmRecording() {
+            // Show the confirmation pop-up
+            const userConfirmed = confirm("You are about to send a distress call to the police. This has the same legal significance as a 911 call. Video and audio will be recorded to provide the authorities with more information. Click OK to confirm.");
+            if (userConfirmed) {
+                // If user confirms, submit the form
+                document.getElementById("recordingForm").submit();
+            } else {
+                // If user cancels, do nothing (form won't be submitted)
+                return false;
+            }
+        }
+
+        function cancelRecording() {
+            // Redirect the user to main.html when cancel is clicked
+            window.location.href = "/main";
+        }
+    </script>
+</head>
+<body>
+    <h2>Emergency Button</h2>
+
+    <div class="description">
+        <p>If you're in danger, this button allows you to send a distress signal to Police. It will activate a 10-second video and audio recording to provide Police with more information about your situation.</p>
+    </div>
+
+    <form id="recordingForm" method="POST" action="/start_recording">
+        <!-- Recording Duration Section -->
+        <div class="durationSection">
+            <label for="duration">Recording Duration (seconds):</label><br>
+            <input type="number" id="duration" name="duration" value="10" min="1" required><br><br>
+        </div>
+
+        <!-- Add hidden input for 'confirm', but don't use it directly yet -->
+        <input type="hidden" name="confirm" value="yes">
+
+        <!-- Emergency Button with an onclick event to trigger confirmation -->
+        <button type="button" class="divButton callPoliceButton" onclick="confirmRecording()">CALL POLICE</button>
+    </form>
+    
+    <!-- Cancel button that redirects to main.html -->
+    <button type="button" class="divButton" onclick="cancelRecording()">Cancel</button>
+</body>
+</html>
