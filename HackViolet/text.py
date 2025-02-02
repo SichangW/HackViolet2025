@@ -124,7 +124,7 @@ def record_video_audio(duration=duration):
 # Function to send email with the video and location
 def send_email_with_video(transcript):
     email = "psaahas@gmail.com"
-    password = "hfhj hvgb psot pzdi"
+    password = EMAIL_PASSWORD
     recipient = "testauthorities@gmail.com"
     subject = "Video and Location Alert"
     body = f"Latitude: {latitude}, Longitude: {longitude}, City: {city}, Zip: {zip}, Transcript: {transcript}"
