@@ -8,6 +8,7 @@ from flask import Flask, render_template, redirect, url_for, request, jsonify
 from email.message import EmailMessage
 import smtplib
 from CrimeDataAnalysis import CrimeAnalysisSystem
+from transcribe import transcribe_audio
 
 app = Flask(__name__)
 
@@ -35,6 +36,10 @@ import json
 # longitude = geo_json['longitude']
 # city = geo_json['city']
 # zip = geo_json['zip']
+latitude = 12.9716
+longitude = 13.3355
+city = "Mumbai"
+zip = 20148
 
 duration = 10
 
@@ -121,18 +126,18 @@ def record_video_audio(duration=duration):
     merge_audio_video(video_filename, audio_filename, output_filename)
 
 # Function to send email with the video and location
-def send_email_with_video():
+def send_email_with_video(transcript):
     email = "psaahas@gmail.com"
     password = "hfhj hvgb psot pzdi"
     recipient = "testauthorities@gmail.com"
     subject = "Video and Location Alert"
-    #body = f"Latitude: {latitude}, Longitude: {longitude}, City: {city}, Zip: {zip}"
+    body = f"Latitude: {latitude}, Longitude: {longitude}, City: {city}, Zip: {zip}, Transcript: {transcript}"
 
     msg = EmailMessage()
     msg["From"] = email
     msg["To"] = recipient
     msg["Subject"] = subject
-    #msg.set_content(body)
+    msg.set_content(body)
 
     with open("output_video.mp4", "rb") as file:
         msg.add_attachment(file.read(), maintype="video", subtype="mp4", filename="output_video.mp4")
@@ -177,7 +182,8 @@ def index():
 def start_recording():
     if request.form.get('confirm') == 'yes':
         record_video_audio(duration=int(request.form.get('duration')))
-        send_email_with_video()  # Ensure this function works as expected
+        transcript = transcribe_audio(file_path1)
+        send_email_with_video(transcript)  # Ensure this function works as expected
         return redirect(url_for('success'))  # Use route function name 'success' here
     else:
         return redirect(url_for('index'))  # Corrected to use 'index' route
